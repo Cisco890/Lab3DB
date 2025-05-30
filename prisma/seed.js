@@ -1,13 +1,16 @@
-import { PrismaClient, Status } from "@prisma/client";
+// prisma/seed.js
+import pkg from "../generated/prisma/index.js";
+const { PrismaClient, Status } = pkg;
+
 const prisma = new PrismaClient();
 
 async function main() {
-  // Limpiar datos existentes
+  // 1. Limpiar datos existentes
   await prisma.productCategory.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
 
-  // categorías
+  // 2. Sembrar categorías (5)
   await prisma.category.createMany({
     data: [
       {
@@ -27,7 +30,7 @@ async function main() {
     ],
   });
 
-  // productos
+  // 3. Sembrar productos (10)
   await prisma.product.createMany({
     data: [
       {
@@ -93,7 +96,7 @@ async function main() {
     ],
   });
 
-  //  asociaciones
+  // 4. Asociaciones M–N (15)
   await prisma.productCategory.createMany({
     data: [
       { productId: 1, categoryId: 1 },

@@ -5,5 +5,12 @@
   },
   "devDependencies": {
     "prisma": "^6.8.2"
+  },
+  "type": "module",
+  "scripts": {
+    "seed": "node prisma/seed.js"
+  },
+  "prisma": {
+    "seed": "npm run seed"
   }
 }
