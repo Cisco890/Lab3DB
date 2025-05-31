@@ -22,6 +22,7 @@ Este proyecto es una aplicación CRUD completa para gestionar productos y sus ca
 
 3. Configura la conexión a la base de datos:
    - Abre el archivo `.env`.
+   - Deberas de crear un nuevo server en tu computadora local por medio de PostgreSQL
    - Asegúrate de que la variable `DATABASE_URL` tenga tus credenciales de PostgreSQL:
      ```env
      DATABASE_URL="postgresql://<usuario>:<contraseña>@localhost:5432/<nombre_base_datos>?schema=public"
