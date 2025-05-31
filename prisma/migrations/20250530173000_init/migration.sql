@@ -42,18 +42,17 @@ ALTER TABLE "product_categories" ADD CONSTRAINT "product_categories_productId_fk
 -- AddForeignKey
 ALTER TABLE "product_categories" ADD CONSTRAINT "product_categories_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
-CREATE VIEW products_with_categories AS
-SELECT
-  p.id,
-  p.producto,
-  p.precio,
-  p.existencia,
-  p.status,
-  p.condition,
-  c.id   AS category_id,
-  c.nombre,
-  c.descripcion
-FROM products p
-JOIN product_categories pc ON pc."productId" = p.id
-JOIN categories c         ON c.id             = pc."categoryId";
-
+-- CreateView
+CREATE OR REPLACE VIEW "products_with_categories" AS
+SELECT 
+    p.id,
+    p.producto,
+    p.precio,
+    p.existencia,
+    p.status,
+    p.condition,
+    string_agg(c.nombre, ', ') as categories
+FROM "products" p
+LEFT JOIN "product_categories" pc ON p.id = pc."productId"
+LEFT JOIN "categories" c ON pc."categoryId" = c.id
+GROUP BY p.id, p.producto, p.precio, p.existencia, p.status, p.condition;
